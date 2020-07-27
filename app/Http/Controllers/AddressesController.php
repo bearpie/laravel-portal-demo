@@ -134,7 +134,7 @@ class AddressesController extends Controller
         return redirect()->route('addresses.index');
     }
 
-    public function sendMail($id)
+    public function sendMail($id, Request $request)
     {
         $template = EmailTemplate::first();
         $address = Addresses::find($id);
@@ -145,7 +145,7 @@ class AddressesController extends Controller
             $message->subject($template->subject);
             $message->setBody('Hi ' . $address->name . '.' . $template->content);
         });
-
-        return response('Success', 200);
+        $request->session()->flash('message', 'Successfully sent e-mail');
+        return redirect()->route('addresses.index');
     }
 }

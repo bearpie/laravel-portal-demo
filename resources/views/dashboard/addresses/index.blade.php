@@ -57,7 +57,11 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-block btn-success">Send</a>
+                                            <form action="{{ route('sendMail', $address->id ) }}" method="POST">
+                                                @method('POST')
+                                                @csrf
+                                                <button class="btn btn-block btn-success">Send</button>
+                                            </form>
                                         </td>
                                         <td>
                                             <a href="{{ url('/addresses/' . $address->id) }}" class="btn btn-block btn-primary">View</a>
