@@ -52,7 +52,7 @@ class AddressesController extends Controller
     {
         $validatedData = $request->validate([
             'name'     => 'required',
-            'email'    => 'required',
+            'email'    => 'required|unique:addresses',
             'country'  => 'required',
             'source'   => 'required',
         ]);

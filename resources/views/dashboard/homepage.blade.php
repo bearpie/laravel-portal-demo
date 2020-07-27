@@ -52,6 +52,15 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @if ($errors->any())
+                        <div class="row">
+                            <div class="col-12">
+                                @foreach ($errors->all() as $error)
+                                    <div class="alert alert-danger" role="alert">{{ $error }}</div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                     @if(Session::has('message'))
                         <div class="row">
                             <div class="col-12">
