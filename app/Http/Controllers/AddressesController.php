@@ -143,7 +143,7 @@ class AddressesController extends Controller
             $message->replyTo('davidlimdev@gmail.com', 'David Lim');
             $message->to($address->email);
             $message->subject($template->subject);
-            $message->setBody('<p>Hi ' . $address->name . '.</p>' . $template->content);
+            $message->setBody('<p>Hi ' . $address->name . '.</p>' . $template->content, 'text/html');
         });
         $request->session()->flash('message', 'Successfully sent e-mail');
         return redirect()->route('addresses.index');
