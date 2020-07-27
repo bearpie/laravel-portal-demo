@@ -18,12 +18,6 @@
                                     </div>
                                 </div>
                             @endif
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <a href="{{ route('addresses.create') }}" class="btn btn-primary m-2">{{ __('Add Address') }}</a>
-                                </div>
-                            </div>
-                            <br>
                             <table class="table table-responsive-sm table-striped">
                                 <thead>
                                 <tr>
@@ -49,11 +43,13 @@
                                             @if($address->status == 0)
                                                 Not Sent
                                             @elseif($address->status == 1)
-                                                Sent
+                                                Delivered
                                             @elseif($address->status == 2)
-                                                Replied
+                                                Opened
+                                            @elseif($address->status == 3)
+                                                Spammed
                                             @else
-                                                Rejected
+                                                Failed
                                             @endif
                                         </td>
                                         <td>

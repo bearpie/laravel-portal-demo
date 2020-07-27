@@ -28,7 +28,7 @@ class AddressesController extends Controller
      */
     public function index()
     {
-        $addresses = Addresses::paginate( 20 );
+        $addresses = Addresses::paginate( 10 );
         return view('dashboard.addresses.index', ['addresses' => $addresses]);
     }
 
@@ -63,8 +63,18 @@ class AddressesController extends Controller
         $address->country = $request->input('country');
         $address->source = $request->input('source');
         $address->save();
-        $request->session()->flash('message', 'Successfully created address');
-        return redirect()->route('addresses.index');
+
+        $template = EmailTemplate::first();
+        Mail::send([], [], function ($message) use ($address, $template) {
+            $message->from('davidlimdev@gmail.com', 'David Lim');
+            $message->replyTo('davidlimdev@gmail.com', 'David Lim');
+            $message->to($address->email);
+            $message->subject($template->subject);
+            $message->setBody('<p>Hi ' . $address->name . '.</p>' . $template->content, 'text/html');
+        });
+
+        $request->session()->flash('message', 'Successfully created address and sent e-mail');
+        return redirect('/');
     }
 
     /**

@@ -26,7 +26,7 @@ Route::group(['middleware' => ['get.menu']], function () {
     ]);
 
     Route::group(['middleware' => ['auth', 'role:admin']], function () {
-        Route::get('/', function () { return view('dashboard.homepage'); });
+        Route::get('/', 'DashboardController@index')->name('dashboard.home');
         Route::resource('users',        'UsersController')->except( ['create', 'store'] );
         Route::resource('roles',        'RolesController');
         Route::resource('mail',        'MailController');
@@ -58,3 +58,5 @@ Route::group(['middleware' => ['get.menu']], function () {
         });
     });
 });
+
+Route::post('/mailWebHook', 'WebhookController@handle')->name('mail.webhook');
